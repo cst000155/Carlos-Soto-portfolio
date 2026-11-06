@@ -52,3 +52,7 @@ Vercel o Netlify: comando `npm run build`, directorio de salida `dist`. Para Git
 ## Pendiente de contenido
 
 Fechas exactas de estudios, imagen profesional, CV, capturas reales de ExamForge, enlaces públicos a repositorios y contribución concreta al hackatón.
+
+
+### Contacto
+La sección de contacto incluye el correo `sototorrescarlos@gmail.com` mediante enlace `mailto:`.

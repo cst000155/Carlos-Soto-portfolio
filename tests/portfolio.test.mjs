@@ -34,3 +34,10 @@ test('CSS includes responsive and reduced motion behavior',()=>{
   assert.match(css,/@media\(prefers-reduced-motion:reduce\)/);
   assert.match(css,/\[data-theme="light"\]/);
 });
+
+test('public contact email is active and accessible',()=>{
+  assert.ok(app.includes("const EMAIL = 'sototorrescarlos@gmail.com'"));
+  assert.ok(app.includes('href={`mailto:${EMAIL}`}'));
+  assert.ok(!app.includes('Email — pendiente'));
+  assert.ok(!app.includes('e.preventDefault()} className="disabled-contact"'));
+});
