@@ -41,3 +41,59 @@ test('public contact email is active and accessible',()=>{
   assert.ok(!app.includes('Email — pendiente'));
   assert.ok(!app.includes('e.preventDefault()} className="disabled-contact"'));
 });
+
+test('V2.3 contains interactive profile tabs in both languages',()=>{
+  assert.ok(app.includes('role="tablist"'));
+  assert.ok(app.includes('aria-selected={profileTab===i}'));
+  assert.ok(app.includes('profilePanels'));
+  for(const x of ['Lo que hago','Cómo trabajo','Qué busco','What I build','How I work','What comes next']) assert.ok(app.includes(x));
+});
+test('V2.3 résumé is a printable accessible dialog with verified contact details',()=>{
+  assert.ok(app.includes('role="dialog"'));
+  assert.ok(app.includes('aria-modal="true"'));
+  assert.ok(app.includes('window.print()'));
+  assert.ok(app.includes('sototorrescarlos@gmail.com'));
+  assert.ok(app.includes('University of Jaén'));
+  assert.ok(app.includes('onKey'));
+});
+test('profile has responsive and print-only résumé styles',()=>{
+  const styles=fs.readFileSync(path.join(root,'src/profile.css'),'utf8');
+  postcss.parse(styles);
+  assert.ok(styles.includes('@media print'));
+  assert.ok(styles.includes('prefers-reduced-motion'));
+  assert.ok(styles.includes('max-width:590px'));
+});
+
+test('name is consistently Carlos Soto Torres',()=>{
+  assert.ok(app.includes('Carlos Soto Torres'));
+  assert.ok(app.includes('CARLOS SOTO TORRES'));
+  for(const f of ['src/App.tsx','index.html','README.md']) assert.ok(!fs.readFileSync(path.join(root,f),'utf8').toLowerCase().includes('torrex'));
+});
+
+test('résumé imports confirmed Erasmus and course details and offers original PDF',()=>{
+  assert.ok(app.includes('Universidade de Aveiro'));
+  assert.ok(app.includes('Inteligencia Artificial y Automatización'));
+  assert.ok(app.includes('Ciberseguridad y Google Dorks'));
+  assert.ok(app.includes('/CV_Carlos_Soto_Torres.pdf'));
+  assert.ok(fs.existsSync(path.join(root,'public/CV_Carlos_Soto_Torres.pdf')));
+});
+
+test('V2.4 displays confirmed Erasmus dates in both languages',()=>{
+  assert.ok(app.includes('SEP 2024 — JUL 2025'));
+  assert.ok(app.includes('septiembre de 2024 a julio de 2025'));
+  assert.ok(app.includes('September 2024 to July 2025'));
+});
+test('V2.4 AidRelease case includes verified user-supplied contributions',()=>{
+  for(const value of ['AidRelease','Rust','Soroban','69 pruebas automatizadas','69 automated tests','Stellar Testnet','reembolsos','refunds']) assert.ok(app.includes(value),`Missing ${value}`);
+  assert.ok(app.includes('colaboré en la integración frontend'));
+});
+test('V2.4 offers keyboard operable expandable details in both sections',()=>{
+  assert.ok(app.includes('className="milestone-expand"'));
+  assert.ok(app.includes('className="project-explore"'));
+  assert.ok(app.includes('<summary>'));
+  assert.ok(app.includes('t.projectDetails[i].contribution'));
+  assert.ok(app.includes('t.projectDetails[i].validation'));
+  const css=fs.readFileSync(path.join(root,'src/profile.css'),'utf8');
+  assert.ok(css.includes('.project-explore summary:focus-visible'));
+  assert.ok(css.includes('@media(prefers-reduced-motion:reduce)'));
+});

@@ -26,3 +26,9 @@ html{scroll-padding-top:80px}body,.site{background:var(--em-background);color:va
 @media(max-width:780px){.planet-wrap{top:90px;right:-44%;width:115vw;height:85vw;opacity:.48;pointer-events:none}.hero-content{padding-top:42px}.hero h1{font-size:clamp(54px,12.5vw,90px)}.hero-crosshair{display:none}.theme-toggle{width:35px;height:35px}.project-card{transform:none!important}.project-card.reveal.revealed{transform:none!important}}
 @media(max-width:470px){.planet-wrap{top:100px;right:-58%;width:140vw;height:110vw;opacity:.35}.planet-label{display:none}.hero-content{padding-top:55px}.hero h1{font-size:clamp(45px,12.4vw,70px)}.nav-actions{gap:7px}}
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1!important;transform:none!important}.planet-aura,.hero-content h1 span{animation:none!important}.project-card{transform:none!important}}
+
+/* Hero presentation: keep copy readable even with four CTAs */
+.hero .hero-bottom{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:24px;max-width:min(100%,800px)}
+.hero .hero-bottom>p{display:block;flex:none;width:100%;max-width:640px;min-width:0;line-height:1.75;text-wrap:pretty}
+.hero .hero-buttons{display:flex;flex-wrap:wrap;flex-shrink:1;max-width:100%;gap:10px}
+@media(max-width:780px){.hero .hero-bottom{gap:20px}.hero .hero-bottom>p{max-width:min(100%,560px)}.hero .hero-buttons{gap:8px}}
