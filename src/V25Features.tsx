@@ -1,5 +1,6 @@
+import { ArchitectureDiagram } from './V26Features';
 import { useEffect, useRef, useState } from 'react';
-import { BriefcaseBusiness, Check, ChevronRight, Clipboard, Download, ExternalLink, Github, Linkedin, Mail, Send, TerminalSquare, X } from 'lucide-react';
+import { BriefcaseBusiness, Check, ChevronRight, Clipboard, Download, ExternalLink, Github, Linkedin, Mail, Send, TerminalSquare, X, ArrowLeft, ArrowRight } from 'lucide-react';
 import './v25.css';
 
 type Lang = 'es' | 'en';
@@ -20,16 +21,21 @@ function useDialogEscape(close:()=>void){
  },[close]);return ref;
 }
 export function ProjectExperience({lang,projects,details,index,close}:{lang:Lang;projects:CaseStudy[];details:CaseDetail[];index:number;close:()=>void}){
- const ref=useDialogEscape(close);const p=projects[index],d=details[index];
+ const ref=useDialogEscape(close);
+ const [activeIndex,setActiveIndex]=useState(index);
+ useEffect(()=>setActiveIndex(index),[index]);
+ const activeProject=projects[activeIndex], activeDetail=details[activeIndex];
  const es=lang==='es';const titles=es?['El reto','Mi contribución','Validación y estado']:['The challenge','My contribution','Validation & status'];
  return <div className="v25-backdrop" onMouseDown={e=>{if(e.target===e.currentTarget)close()}}>
   <div role="dialog" aria-modal="true" aria-labelledby="v25-project-title" tabIndex={-1} ref={ref} className="v25-dialog v25-case">
-   <header className="v25-dialog-head"><span className="v25-overline">{es?'PROYECTO / CASO DE ESTUDIO':'PROJECT / CASE STUDY'} — 0{index+1}</span><button type="button" className="v25-icon-button" onClick={close} aria-label={es?'Cerrar proyecto':'Close project'}><X size={20}/></button></header>
-   <div className={'v25-case-art v25-case-art-'+index} aria-hidden="true"><span>{index===0?'EF':index===1?'⟡':'C++'}</span><i/><i/></div>
-   <div className="v25-case-body"><span className="v25-overline">{p.tag}</span><h2 id="v25-project-title">{p.title}<span className="v25-dot">.</span></h2><p className="v25-subtitle">{p.subtitle}</p><p>{p.description}</p>
-    <div className="v25-chips">{p.chips.map(c=><span key={c}>{c}</span>)}</div>
-    <div className="v25-case-sections">{[d.problem,d.contribution,d.validation].map((part,i)=><section key={titles[i]}><span>0{i+1}</span><div><h3>{titles[i]}</h3><p>{part}</p></div></section>)}</div>
-    {index===1&&<div className="v25-case-proof"><strong>69</strong><span>{es?'pruebas automatizadas · transacciones verificadas en Stellar Testnet':'automated tests · verified transactions on Stellar Testnet'}</span></div>}
+   <header className="v25-dialog-head"><span className="v25-overline">{es?'PROYECTO / CASO DE ESTUDIO':'PROJECT / CASE STUDY'} — 0{activeIndex+1}</span><button type="button" className="v25-icon-button" onClick={close} aria-label={es?'Cerrar proyecto':'Close project'}><X size={20}/></button></header>
+   <div className={'v25-case-art v25-case-art-'+activeIndex} aria-hidden="true"><span>{activeIndex===0?'EF':activeIndex===1?'⟡':'C++'}</span><i/><i/></div>
+   <div className="v25-case-body"><span className="v25-overline">{activeProject.tag}</span><h2 id="v25-project-title">{activeProject.title}<span className="v25-dot">.</span></h2><p className="v25-subtitle">{activeProject.subtitle}</p><p>{activeProject.description}</p>
+    <div className="v25-chips">{activeProject.chips.map(c=><span key={c}>{c}</span>)}</div>
+    <div className="v25-case-sections">{[activeDetail.problem,activeDetail.contribution,activeDetail.validation].map((part,i)=><section key={titles[i]}><span>0{i+1}</span><div><h3>{titles[i]}</h3><p>{part}</p></div></section>)}</div>
+    <div className="v26-case-block"><h3>{es?'Arquitectura técnica':'Technical architecture'}</h3><ArchitectureDiagram index={activeIndex} lang={lang}/></div>
+    {activeIndex===1&&<div className="v25-case-proof"><strong>69</strong><span>{es?'pruebas automatizadas · transacciones verificadas en Stellar Testnet':'automated tests · verified transactions on Stellar Testnet'}</span></div>}
+    <nav className="v27-case-nav" aria-label={es?'Navegación entre proyectos':'Project navigation'}><button type="button" onClick={()=>setActiveIndex(i=>(i+projects.length-1)%projects.length)}><ArrowLeft size={16}/>{es?'Anterior':'Previous'}</button><span aria-live="polite">0{activeIndex+1} / 0{projects.length}</span><button type="button" onClick={()=>setActiveIndex(i=>(i+1)%projects.length)}>{es?'Siguiente':'Next'}<ArrowRight size={16}/></button></nav>
     <p className="v25-pending">{es?'Capturas y enlace al repositorio: pendientes de incorporar. Las ilustraciones son conceptuales.':'Screenshots and repository link: to be added. Artwork is conceptual.'}</p>
    </div>
   </div>

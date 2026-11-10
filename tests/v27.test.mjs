@@ -1,0 +1,13 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import { createRequire } from 'node:module';
+const root=path.resolve(import.meta.dirname,'..');
+const read=p=>fs.readFileSync(path.join(root,p),'utf8');
+const require=createRequire(import.meta.url);
+test('V2.7 GitHub filters are accessible and preserve empty/loading/error states',()=>{const s=read('src/V26Features.tsx');for(const str of ['type="search"','<select','visibleRepos.length===0','setQuery','setLanguage','AbortController',"status==='error'"])assert.ok(s.includes(str),str)});
+test('case study modal supports next/previous keyboard-accessible controls',()=>{const s=read('src/V25Features.tsx');for(const str of ['v27-case-nav','setActiveIndex','aria-label','activeProject','activeDetail','ArrowLeft','ArrowRight'])assert.ok(s.includes(str),str)});
+test('SEO structured data identifies Carlos correctly and does not invent a site URL',()=>{const s=read('index.html');assert.ok(s.includes('application/ld+json'));assert.ok(s.includes('Carlos Soto Torres'));assert.ok(!s.includes('Torrex'));assert.ok(s.includes('/favicon.svg'));assert.ok(fs.existsSync(path.join(root,'public/favicon.svg')))});
+test('styles support responsive filters and reduced motion',()=>{const s=read('src/v26.css');assert.ok(s.includes('.v27-repo-tools'));assert.ok(s.includes('@media(max-width:660px)'));assert.ok(s.includes('prefers-reduced-motion'))});
+test('CV PDF and preexisting features remain',()=>{assert.ok(fs.statSync(path.join(root,'public/CV_Carlos_Soto_Torres.pdf')).size>10000);const s=read('src/App.tsx');for(const component of ['DigitalPlanet','InteractiveTerminal','SpatialStack','RecruiterView','GithubRepositories','JourneyProgress'])assert.ok(s.includes(component),component)});

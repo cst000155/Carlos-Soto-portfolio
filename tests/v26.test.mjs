@@ -1,0 +1,15 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import {createRequire} from 'node:module';
+const require=createRequire(import.meta.url);
+const ts=require('typescript');const postcss=require('postcss');
+const root=path.resolve(import.meta.dirname,'..');
+const read=p=>fs.readFileSync(path.join(root,p),'utf8');
+test('V2.6 TSX syntax is valid',()=>{for(const f of ['src/App.tsx','src/V25Features.tsx','src/V26Features.tsx']){const r=ts.transpileModule(read(f),{fileName:f,reportDiagnostics:true,compilerOptions:{jsx:ts.JsxEmit.ReactJSX,target:ts.ScriptTarget.ES2022}});assert.equal(r.diagnostics?.length??0,0)}});
+test('V2.6 CSS valid and responsive',()=>{const css=read('src/v26.css');postcss.parse(css);assert.match(css,/@media\(max-width:660px\)/);assert.match(css,/prefers-reduced-motion/)});
+test('live GitHub integration uses public API, validates external links and handles errors',()=>{const src=read('src/V26Features.tsx');assert.match(src,/api.github.com\/users\/cst000155\/repos/);assert.match(src,/res.ok/);assert.match(src,/AbortController/);assert.match(src,/startsWith\('https:\/\/github.com\/cst000155\/'\)/);assert.match(src,/No public repositories/)});
+test('case studies retain original content and add evidence-based architecture',()=>{const v25=read('src/V25Features.tsx');const v26=read('src/V26Features.tsx');assert.match(v25,/<ArchitectureDiagram index=\{(?:index|activeIndex)\} lang=\{lang\}/);for(const x of ['Rust / Soroban','Stellar Testnet','69','Frontend'])assert.ok(v26.includes(x));assert.ok(v26.includes('architecture will be documented'))});
+test('SEO meta, skip navigation and accessibility preserved',()=>{const html=read('index.html');const app=read('src/App.tsx');assert.match(html,/og:title/);assert.match(html,/og:description/);assert.match(html,/twitter:card/);assert.match(app,/href="#main-content"/);assert.match(app,/id="main-content"/);assert.match(read('src/v26.css'),/:focus-visible/)});
+test('V2.5 features and original CV preserved',()=>{const app=read('src/App.tsx');for(const x of ['InteractiveTerminal','SpatialStack','RecruiterView','ProjectExperience','JourneyProgress','DigitalPlanet','GithubRepositories'])assert.ok(app.includes(x));assert.ok(fs.statSync(path.join(root,'public/CV_Carlos_Soto_Torres.pdf')).size>10000)});

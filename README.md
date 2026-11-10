@@ -114,3 +114,45 @@ Crea un Pull Request de la rama hacia `main` y utiliza la preview de Vercel ante
 ## Hero técnica (ajuste de presentación)
 
 Se ha sustituido el descriptor y el texto inicial en español e inglés por la presentación técnica de Carlos Soto Torres, sin la palabra «estudiante» en la portada. Se ha corregido el layout de `.hero-bottom` para evitar que el párrafo se estreche por los botones. No se modificaron otras secciones, CV o proyectos.
+
+
+## Emerald Motion V2.6 — Draft for review
+
+- Expanded project case studies with an evidence-based AidRelease architecture diagram; other project architecture is explicitly pending verification.
+- Public GitHub repository explorer using the GitHub public REST API. It shows only real public, non-fork, non-archived repos and handles API errors/empty responses.
+- SEO: title, description, Open Graph summary and Twitter card (no fabricated canonical URL).
+- Accessibility: skip-to-content link, labeled flow, responsive cards, reduced-motion styles.
+- No changes to the original CV, languages, recruiter view, terminal, theme toggle or 3D planet.
+
+### Local verification and PR workflow
+
+```bash
+npm ci
+npm test
+npm run build
+npm run dev
+```
+
+These are required on a machine with npm registry access. Syntax and static tests have passed locally, but a full production build cannot be confirmed in the restricted build environment. Do not merge without a successful build and browser review.
+
+To apply to your existing GitHub clone, create `feature/emerald-motion-v2.6` from an up-to-date `main`, copy the delivered project files into the clone without replacing `.git`, run the commands above, then commit/push the feature branch. Open a PR into `main` and review the Vercel preview before merging.
+
+**Note:** Live GitHub repository data depends on the visitor's access to GitHub's public API and its rate limits. The interface has error and empty states.
+
+
+## Workflow for reviewing V2.7 in a separate directory
+
+This ZIP is a **standalone copy**, not a Git clone. Unzip it anywhere outside your clean published repository.
+
+```powershell
+npm install
+npm test
+npm run build
+npm run dev
+```
+
+Once the full build and browser checks pass, copy only project files into your clean Git clone on a new feature branch. **Do not copy `.git` or `node_modules`**. Do not force-push. No code is published automatically.
+
+## V2.7 changes
+
+See [CHANGELOG.md](CHANGELOG.md). The GitHub gallery uses only public data available through GitHub's API and may be empty or unavailable due to API errors. Case-study images are conceptual until authentic screenshots are supplied.
