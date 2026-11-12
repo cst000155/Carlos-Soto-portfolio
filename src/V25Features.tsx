@@ -1,6 +1,6 @@
 import { ArchitectureDiagram } from './V26Features';
 import { useEffect, useRef, useState } from 'react';
-import { BriefcaseBusiness, Check, ChevronRight, Clipboard, Download, ExternalLink, Github, Linkedin, Mail, Send, TerminalSquare, X, ArrowLeft, ArrowRight } from 'lucide-react';
+import { BriefcaseBusiness, Globe2, Check, ChevronRight, Clipboard, Download, ExternalLink, Github, Linkedin, Mail, Send, TerminalSquare, X, ArrowLeft, ArrowRight } from 'lucide-react';
 import './v25.css';
 
 type Lang = 'es' | 'en';
@@ -10,6 +10,7 @@ const GH='https://github.com/cst000155';
 const LI='https://www.linkedin.com/in/carlos-soto-torres-964149410/';
 const EMAIL='sototorrescarlos@gmail.com';
 const CV='/CV_Carlos_Soto_Torres.pdf';
+const AIDRELEASE_DEMO='https://aidrelease.vercel.app/';
 function useDialogEscape(close:()=>void){
  const ref=useRef<HTMLDivElement>(null);
  useEffect(()=>{
@@ -34,9 +35,10 @@ export function ProjectExperience({lang,projects,details,index,close}:{lang:Lang
     <div className="v25-chips">{activeProject.chips.map(c=><span key={c}>{c}</span>)}</div>
     <div className="v25-case-sections">{[activeDetail.problem,activeDetail.contribution,activeDetail.validation].map((part,i)=><section key={titles[i]}><span>0{i+1}</span><div><h3>{titles[i]}</h3><p>{part}</p></div></section>)}</div>
     <div className="v26-case-block"><h3>{es?'Arquitectura técnica':'Technical architecture'}</h3><ArchitectureDiagram index={activeIndex} lang={lang}/></div>
+    {activeIndex===1&&<a className="aidrelease-live-link aidrelease-case-link" href={AIDRELEASE_DEMO} target="_blank" rel="noopener noreferrer"><Globe2 size={18}/>{es?'Abrir AidRelease · demo pública':'Open AidRelease · live demo'}<ExternalLink size={16}/></a>}
     {activeIndex===1&&<div className="v25-case-proof"><strong>69</strong><span>{es?'pruebas automatizadas · transacciones verificadas en Stellar Testnet':'automated tests · verified transactions on Stellar Testnet'}</span></div>}
     <nav className="v27-case-nav" aria-label={es?'Navegación entre proyectos':'Project navigation'}><button type="button" onClick={()=>setActiveIndex(i=>(i+projects.length-1)%projects.length)}><ArrowLeft size={16}/>{es?'Anterior':'Previous'}</button><span aria-live="polite">0{activeIndex+1} / 0{projects.length}</span><button type="button" onClick={()=>setActiveIndex(i=>(i+1)%projects.length)}>{es?'Siguiente':'Next'}<ArrowRight size={16}/></button></nav>
-    <p className="v25-pending">{es?'Capturas y enlace al repositorio: pendientes de incorporar. Las ilustraciones son conceptuales.':'Screenshots and repository link: to be added. Artwork is conceptual.'}</p>
+    <p className="v25-pending">{activeIndex===1?(es?'Demo pública disponible. Repositorio y capturas reales pendientes de incorporar; ilustraciones conceptuales.':'Live demo available. Repository and real screenshots to be added; conceptual artwork.'):(es?'Capturas y enlace al repositorio: pendientes de incorporar. Las ilustraciones son conceptuales.':'Screenshots and repository link: to be added. Artwork is conceptual.')}</p>
    </div>
   </div>
  </div>
@@ -92,6 +94,7 @@ export function RecruiterView({lang,close}:{lang:Lang;close:()=>void}){
     <h3>{es?'Proyectos destacados':'Featured projects'}</h3><div className="v25-recruiter-projects"><span>ExamForge · {es?'Creación de exámenes':'Exam creation'}</span><span>AidRelease · Rust / Soroban / Stellar</span><span>C++ · {es?'Estructuras de datos':'Data structures'}</span></div>
     <h3>{es?'Tecnologías':'Technologies'}</h3><p>C++ · Java · Python · JavaScript · TypeScript · React · Spring Boot · Rust · Soroban · SQL · Git</p>
     <h3>{es?'Idiomas y modalidad':'Languages & availability'}</h3><p>{es?'Español nativo · Inglés B2 · España (remoto, híbrido o presencial)':'Native Spanish · English B2 · Spain (remote, hybrid or on-site)'}</p>
+    <a className="aidrelease-live-link aidrelease-recruiter-link" href={AIDRELEASE_DEMO} target="_blank" rel="noopener noreferrer"><Globe2 size={17}/>{es?'Probar AidRelease':'Try AidRelease'}<ExternalLink size={15}/></a>
     <div className="v25-recruiter-actions"><a href={CV} download><Download size={17}/>{es?'Descargar CV real':'Download original CV'}</a><a href={`mailto:${EMAIL}`}><Mail size={17}/>{es?'Escribir correo':'Email me'}</a><button onClick={copy}>{copied?<Check size={17}/>:<Clipboard size={17}/>} {copied?(es?'Copiado':'Copied'):(es?'Copiar correo':'Copy email')}</button></div>
     <div className="v25-recruiter-links"><a href={GH} target="_blank" rel="noopener noreferrer"><Github size={17}/> GitHub <ExternalLink size={13}/></a><a href={LI} target="_blank" rel="noopener noreferrer"><Linkedin size={17}/> LinkedIn <ExternalLink size={13}/></a></div>
    </div>

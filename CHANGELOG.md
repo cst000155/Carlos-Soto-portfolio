@@ -1,3 +1,8 @@
+## V2.8 — AidRelease live demo
+- Enlace a la aplicación publicada desde tarjeta, caso de estudio y Recruiter View.
+- Etiquetas español/inglés, apertura segura en nueva pestaña, foco accesible y estilos responsive.
+- Conserva el resto de funcionalidades y deja pendiente el repositorio y las capturas auténticas.
+
 # Emerald Motion — Change log
 
 ## 2.7.0 (working copy, not published)

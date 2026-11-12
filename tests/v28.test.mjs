@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+const app=readFileSync(new URL('../src/App.tsx',import.meta.url),'utf8');
+const cases=readFileSync(new URL('../src/V25Features.tsx',import.meta.url),'utf8');
+const css=readFileSync(new URL('../src/v25.css',import.meta.url),'utf8');
+test('AidRelease live demo URL added to main card and project dialog',()=>{assert.match(app,/https:\/\/aidrelease\.vercel\.app\//);assert.match(cases,/https:\/\/aidrelease\.vercel\.app\//)});
+test('AidRelease links only visible for case index 1',()=>{assert.match(app,/i===1&&<a className="aidrelease-live-link"/);assert.match(cases,/activeIndex===1&&<a className="aidrelease-live-link/)});
+test('External links open safely in new tab',()=>{assert.match(app,/target="_blank" rel="noopener noreferrer" aria-label=/);assert.match(cases,/target="_blank" rel="noopener noreferrer"/)});
+test('Spanish and English demo labels and recruiter link',()=>{assert.match(app,/Ver aplicación en directo/);assert.match(app,/View live application/);assert.match(cases,/Probar AidRelease/);assert.match(cases,/Try AidRelease/)});
+test('Accessible focus, mobile and reduced-motion styles',()=>{assert.match(css,/:focus-visible/);assert.match(css,/@media\(max-width:520px\)/);assert.match(css,/prefers-reduced-motion/)});

@@ -13,3 +13,12 @@
 @media(max-width:780px){.v25-recruiter-trigger{padding:9px 10px;font-size:.67rem}.v25-spatial{padding:17px}.v25-cloud{height:290px}.v25-cloud-node{font-size:.67rem;padding:8px 9px}.v25-terminal-bar>span:last-child{display:none}.v25-recruiter-stats{grid-template-columns:1fr}.v25-recruiter-stats>div{grid-template-columns:100px 1fr;align-items:center}.v25-backdrop{padding:10px}.v25-dialog{max-height:96dvh}.v25-case-art{height:150px}}
 @media(max-width:480px){.v25-recruiter-trigger{font-size:0;padding:10px;border-radius:50%}.v25-recruiter-trigger svg{width:17px}.v25-spatial-tabs button{font-size:.62rem;padding:8px}.v25-cloud{height:265px}.v25-cloud-node{max-width:110px;white-space:normal;font-size:.62rem;padding:6px}.v25-terminal-output{padding:16px;font-size:.78rem}.v25-terminal-footer{flex-direction:column;align-items:flex-start}.v25-case-sections section{gap:14px}}
 @media(prefers-reduced-motion:reduce){.v25-recruiter-trigger,.v25-hero-recruiter,.v25-case-open,.v25-cloud-node,.v25-journey-progress>div{animation:none!important;transition:none!important}}
+
+/* V2.8 — Public AidRelease demo links */
+.aidrelease-live-link{display:inline-flex;align-items:center;justify-content:center;gap:.65rem;width:fit-content;max-width:100%;padding:.85rem 1.15rem;border:1px solid var(--accent,#44e4b0);border-radius:999px;color:var(--text,#eaf5ee);background:color-mix(in srgb,var(--accent,#44e4b0) 12%,transparent);font-weight:700;font-size:.9rem;text-decoration:none;transition:transform .2s ease,background .2s ease,border-color .2s ease}
+.aidrelease-live-link:hover{transform:translateY(-2px);background:color-mix(in srgb,var(--accent,#44e4b0) 23%,transparent)}
+.aidrelease-live-link:focus-visible{outline:3px solid var(--accent,#44e4b0);outline-offset:4px}
+.aidrelease-case-link{margin:1.25rem 0}
+.aidrelease-recruiter-link{margin:.7rem 0 1rem}
+@media(max-width:520px){.aidrelease-live-link{width:100%;font-size:.85rem}}
+@media(prefers-reduced-motion:reduce){.aidrelease-live-link{transition:none}.aidrelease-live-link:hover{transform:none}}

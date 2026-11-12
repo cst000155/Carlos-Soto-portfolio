@@ -156,3 +156,8 @@ Once the full build and browser checks pass, copy only project files into your c
 ## V2.7 changes
 
 See [CHANGELOG.md](CHANGELOG.md). The GitHub gallery uses only public data available through GitHub's API and may be empty or unavailable due to API errors. Case-study images are conceptual until authentic screenshots are supplied.
+
+
+## AidRelease — demo pública (V2.8)
+
+La tarjeta de AidRelease, su caso de estudio ampliado y Recruiter View enlazan ahora a https://aidrelease.vercel.app/. La web es un enlace externo; no se incrusta ni se atribuyen nuevas funciones que no se hayan comprobado. El repositorio de AidRelease y las capturas reales siguen pendientes.
